@@ -1,0 +1,37 @@
+# Everything a running site does not need.
+# Keep build/, assets/, includes/, languages/, readme.txt, LICENSE and the
+# main plugin file.
+#
+# Leading slashes anchor a pattern to the plugin root. Without one, rsync
+# matches the name at any depth -- "vendor" alone would also drop
+# assets/vendor/, which is where the bundled Ambient CSS lives.
+
+/.git
+/.github
+/.gitignore
+/.distignore
+/.husky
+/.wp-env.json
+/.wp-env.override.json
+/node_modules
+/vendor
+/dist
+/src
+/tests
+/bin
+/artifacts
+/test-results
+/playwright-report
+/blob-report
+/playwright.config.ts
+/package.json
+/package-lock.json
+/composer.json
+/composer.lock
+/phpcs.xml.dist
+/phpunit.xml.dist
+/SPEC.md
+/debug.log
+/db.sql
+*.zip
+.DS_Store
