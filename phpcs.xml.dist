@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<ruleset name="WP Ambient CSS">
+	<description>Coding standards for the WP Ambient CSS plugin.</description>
+
+	<file>.</file>
+
+	<exclude-pattern>/node_modules/*</exclude-pattern>
+	<exclude-pattern>/vendor/*</exclude-pattern>
+	<exclude-pattern>/build/*</exclude-pattern>
+	<exclude-pattern>/assets/vendor/*</exclude-pattern>
+
+	<arg name="extensions" value="php"/>
+	<arg name="basepath" value="."/>
+	<arg name="colors"/>
+	<arg value="sp"/>
+
+	<rule ref="WordPress">
+		<!-- The plugin uses namespaces, so the file name rules that assume
+		     class-<name>.php inside a flat structure do not apply cleanly. -->
+		<exclude name="WordPress.Files.FileName.InvalidClassFileName"/>
+	</rule>
+
+	<config name="minimum_wp_version" value="6.6"/>
+	<config name="testVersion" value="7.4-"/>
+
+	<rule ref="WordPress.WP.I18n">
+		<properties>
+			<property name="text_domain" type="array">
+				<element value="wp-ambientcss"/>
+			</property>
+		</properties>
+	</rule>
+
+	<rule ref="WordPress.NamingConventions.PrefixAllGlobals">
+		<properties>
+			<property name="prefixes" type="array">
+				<element value="wp_ambientcss"/>
+				<element value="WP_AMBIENTCSS"/>
+				<element value="WP_AmbientCSS"/>
+			</property>
+		</properties>
+	</rule>
+</ruleset>

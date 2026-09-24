@@ -14,12 +14,14 @@ npm-debug.log*
 yarn-error.log*
 
 # Composer
-vendor/
+/vendor/
 
 # Build artifacts
 dist/
-build/
 *.zip
+
+# build/ is committed so the plugin runs without a build step.
+# assets/vendor/ holds the bundled Ambient CSS and must be committed.
 
 # Logs
 *.log
@@ -30,3 +32,16 @@ build/
 
 # WordPress test/CI
 wp-env.json.local
+
+# wp-env
+.wp-env.override.json
+debug.log
+db.sql
+
+# Playwright / e2e
+test-results/
+playwright-report/
+blob-report/
+playwright/.cache/
+tests/e2e/.auth/
+/artifacts/

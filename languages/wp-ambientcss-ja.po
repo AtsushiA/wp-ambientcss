@@ -1,0 +1,320 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: WP Ambient CSS 0.1.0\n"
+"Report-Msgid-Bugs-To: https://github.com/kikkupico/ambientcss\n"
+"Language: ja\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Domain: wp-ambientcss\n"
+
+
+#: includes/class-settings.php:116
+#: includes/class-settings.php:117
+#: includes/class-settings.php:317
+msgid "Ambient CSS"
+msgstr "Ambient CSS"
+
+#: includes/class-settings.php:140
+msgid "Site default lighting"
+msgstr "サイト全体の既定ライティング"
+
+#: includes/class-settings.php:146
+msgid "Light X (-1 to 1)"
+msgstr "光源 X（-1〜1）"
+
+#: includes/class-settings.php:147
+msgid "Light Y (-1 to 1)"
+msgstr "光源 Y（-1〜1）"
+
+#: includes/class-settings.php:148
+msgid "Key light intensity (0 to 1)"
+msgstr "キーライト強度（0〜1）"
+
+#: includes/class-settings.php:149
+msgid "Fill light intensity (0 to 1)"
+msgstr "フィルライト強度（0〜1）"
+
+#: includes/class-settings.php:150
+msgid "Light hue (0 to 360)"
+msgstr "光の色相（0〜360）"
+
+#: includes/class-settings.php:151
+msgid "Light saturation (%)"
+msgstr "光の彩度（%）"
+
+#: includes/class-settings.php:152
+msgid "Reflectance (0 to 2)"
+msgstr "反射率（0〜2）"
+
+#: includes/class-settings.php:153
+msgid "Grain amount (0 to 2)"
+msgstr "グレイン量（0〜2）"
+
+#: includes/class-settings.php:169
+msgid "Surface color (albedo)"
+msgstr "面の色（albedo）"
+
+#: includes/class-settings.php:177
+msgid "Stylesheet loading"
+msgstr "スタイルシートの読み込み"
+
+#: includes/class-settings.php:184
+msgid "Load the stylesheet"
+msgstr "スタイルシートを読み込む"
+
+#: includes/class-settings.php:195
+msgid "These values are written to :root and become the starting point for every block. Leave a field empty to keep the Ambient CSS default."
+msgstr "これらの値は :root に出力され、すべてのブロックの出発点になります。空欄にすると Ambient CSS の既定値がそのまま使われます。"
+
+#: includes/class-settings.php:246
+msgid "Always (recommended)"
+msgstr "常に読み込む（推奨）"
+
+#: includes/class-settings.php:251
+msgid "Only on pages that use Ambient"
+msgstr "Ambient を使うページだけ"
+
+#: includes/class-settings.php:255
+msgid "Ambient CSS sets custom properties on every element through a universal selector, so loading it only where it is needed can save work on large pages. The trade-off: when a block is detected after the document head has been sent, the stylesheet is printed in the footer and the first paint can flash unstyled."
+msgstr "Ambient CSS は全称セレクタで全要素にカスタムプロパティを設定するため、必要なページだけに読み込むと大きなページの負荷を減らせます。ただし head の出力後にブロックが見つかった場合、スタイルシートはフッターに出力され、初回描画で一瞬スタイルが当たらないことがあります。"
+
+#: includes/class-settings.php:296
+msgid "The surface color was not a value Ambient CSS can use, so it was discarded."
+msgstr "面の色が Ambient CSS で扱えない値だったため、破棄しました。"
+
+#: src/inspector.js:24
+msgid "Top left"
+msgstr "左上"
+
+#: src/inspector.js:25
+msgid "Top"
+msgstr "上"
+
+#: src/inspector.js:26
+msgid "Top right"
+msgstr "右上"
+
+#: src/inspector.js:27
+msgid "Left"
+msgstr "左"
+
+#: src/inspector.js:28
+msgid "Right"
+msgstr "右"
+
+#: src/inspector.js:29
+msgid "Bottom left"
+msgstr "左下"
+
+#: src/inspector.js:30
+msgid "Bottom"
+msgstr "下"
+
+#: src/inspector.js:31
+msgid "Bottom right"
+msgstr "右下"
+
+#: src/inspector.js:49
+#: src/inspector.js:72
+#: src/inspector.js:81
+msgid "None"
+msgstr "なし"
+
+#: src/inspector.js:50
+msgid "Flat"
+msgstr "フラット"
+
+#: src/inspector.js:51
+msgid "Concave (vertical)"
+msgstr "凹面（縦）"
+
+#: src/inspector.js:53
+msgid "Concave (horizontal)"
+msgstr "凹面（横）"
+
+#: src/inspector.js:56
+msgid "Convex"
+msgstr "凸面"
+
+#: src/inspector.js:60
+msgid "Matte"
+msgstr "マット"
+
+#: src/inspector.js:61
+msgid "Shiny"
+msgstr "光沢"
+
+#: src/inspector.js:62
+msgid "Glass"
+msgstr "ガラス"
+
+#: src/inspector.js:63
+msgid "Brushed"
+msgstr "ヘアライン"
+
+#: src/inspector.js:65
+msgid "Brushed (circular)"
+msgstr "ヘアライン（円）"
+
+#: src/inspector.js:68
+msgid "Blasted"
+msgstr "ブラスト"
+
+#: src/inspector.js:73
+msgid "Chamfer"
+msgstr "面取り"
+
+#: src/inspector.js:74
+msgid "Chamfer 2"
+msgstr "面取り 2"
+
+#: src/inspector.js:75
+msgid "Fillet"
+msgstr "丸エッジ"
+
+#: src/inspector.js:76
+msgid "Fillet 2"
+msgstr "丸エッジ 2"
+
+#: src/inspector.js:77
+msgid "Groove"
+msgstr "溝"
+
+#: src/inspector.js:82
+msgid "4px"
+msgstr "4px"
+
+#: src/inspector.js:83
+msgid "8px"
+msgstr "8px"
+
+#: src/inspector.js:84
+msgid "12px"
+msgstr "12px"
+
+#: src/inspector.js:85
+msgid "16px"
+msgstr "16px"
+
+#: src/inspector.js:86
+msgid "Pill"
+msgstr "全円"
+
+#: src/inspector.js:90
+msgid "Reflectance"
+msgstr "反射率"
+
+#: src/inspector.js:91
+msgid "Key light"
+msgstr "キーライト"
+
+#: src/inspector.js:92
+msgid "Fill light"
+msgstr "フィルライト"
+
+#: src/inspector.js:93
+msgid "Light hue"
+msgstr "光の色相"
+
+#: src/inspector.js:94
+msgid "Light saturation"
+msgstr "光の彩度"
+
+#: src/inspector.js:95
+msgid "Light X"
+msgstr "光源 X"
+
+#: src/inspector.js:96
+msgid "Light Y"
+msgstr "光源 Y"
+
+#: src/inspector.js:97
+msgid "Grain amount"
+msgstr "グレイン量"
+
+#: src/inspector.js:98
+msgid "Curve strength"
+msgstr "曲面の強さ"
+
+#: src/inspector.js:179
+msgid "Enable Ambient"
+msgstr "Ambient を有効にする"
+
+#: src/inspector.js:180
+msgid "Adds the base class that draws the shadows and edges. The other controls need it."
+msgstr "影とエッジを描画する基底クラスを付与します。他の設定にはこれが必要です。"
+
+#: src/inspector.js:190
+msgid "Light direction"
+msgstr "光源の向き"
+
+#: src/inspector.js:201
+msgid "Inherit light direction"
+msgstr "光源の向きを継承する"
+
+#: src/inspector.js:237
+msgid "A light X or Y value is set under Advanced, which overrides these presets."
+msgstr "詳細設定で光源 X または Y が指定されているため、こちらのプリセットは無効になります。"
+
+#: src/inspector.js:248
+msgid "Surface"
+msgstr "面"
+
+#: src/inspector.js:258
+msgid "Material"
+msgstr "素材"
+
+#: src/inspector.js:268
+msgid "Edge"
+msgstr "エッジ"
+
+#: src/inspector.js:278
+msgid "Elevation"
+msgstr "浮き上がり"
+
+#: src/inspector.js:296
+msgid "Thickness"
+msgstr "厚み"
+
+#: src/inspector.js:297
+msgid "Overrides the thickness an edge treatment sets on its own."
+msgstr "エッジ処理が自動で設定する厚みを上書きします。"
+
+#: src/inspector.js:318
+msgid "Corner radius"
+msgstr "角丸"
+
+#: src/inspector.js:326
+msgid "Glow"
+msgstr "発光"
+
+#: src/inspector.js:339
+msgid "Clear Ambient settings"
+msgstr "Ambient 設定をクリア"
+
+#: src/inspector.js:345
+msgid "Ambient: advanced"
+msgstr "Ambient: 詳細設定"
+
+#: src/inspector.js:354
+msgid "Surface color (albedo). Ambient lights this color rather than using it directly."
+msgstr "面の色（albedo）。Ambient はこの色をそのまま使うのではなく、光を当てた結果を描画します。"
+
+#: src/inspector.js:388
+msgid "Bounce animation"
+msgstr "バウンスアニメーション"
+
+#: src/inspector.js:389
+msgid "Loops the elevation. Respect visitors who ask for reduced motion before using this."
+msgstr "浮き上がりをループさせます。視差効果の低減を希望する閲覧者への配慮を忘れずに。"
+
+#: wp-ambientcss.php
+msgid "Ambient"
+msgstr "Ambient"
+
+#. Description of the plugin
+#: wp-ambientcss.php
+msgid "Use Ambient CSS lighting, surface and material styles as properties on any WordPress block."
+msgstr "Ambient CSS のライティング・面・素材のスタイルを、任意の WordPress ブロックのプロパティとして利用できるようにします。"

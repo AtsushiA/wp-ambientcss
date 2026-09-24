@@ -1,0 +1,30 @@
+{
+  "name": "wp-ambientcss",
+  "version": "0.1.0",
+  "description": "Use Ambient CSS lighting and surface styles as WordPress block properties.",
+  "license": "GPL-2.0-or-later",
+  "private": true,
+  "scripts": {
+    "build": "wp-scripts build && npm run i18n:json",
+    "start": "wp-scripts start",
+    "lint:js": "wp-scripts lint-js src",
+    "lint:php": "vendor/bin/phpcs",
+    "format": "wp-scripts format src",
+    "update:ambient": "node bin/update-ambient-css.mjs",
+    "i18n:pot": "wp i18n make-pot . languages/wp-ambientcss.pot --domain=wp-ambientcss --exclude=node_modules,vendor,assets/vendor,build",
+    "i18n:mo": "wp i18n make-mo languages",
+    "i18n:json": "wp i18n make-json languages --no-purge && node bin/merge-translation-json.mjs",
+    "env:start": "wp-env start",
+    "env:stop": "wp-env stop",
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui"
+  },
+  "devDependencies": {
+    "@ambientcss/css": "^3.1.0",
+    "@playwright/test": "^1.63.0",
+    "@wordpress/e2e-test-utils-playwright": "^2.1.0",
+    "@wordpress/env": "^10.39.0",
+    "@wordpress/scripts": "^30.0.0",
+    "typescript": "^5.9.3"
+  }
+}
