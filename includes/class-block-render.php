@@ -117,6 +117,10 @@ class Block_Render {
 		// markup was written by the editor.
 		$this->assets->mark_used();
 
+		if ( isset( $ambient['follow'] ) ) {
+			$this->assets->mark_follow_used();
+		}
+
 		// Static blocks already have the class in their saved markup. Adding
 		// it again here would duplicate it.
 		if ( ! $this->is_dynamic( $block['blockName'] ) ) {
@@ -125,12 +129,13 @@ class Block_Render {
 
 		$classes = Attributes::get_classes( $ambient, $block );
 		$vars    = Attributes::get_css_vars( $ambient, $block );
+		$data    = Attributes::get_data_attributes( $ambient );
 
-		if ( empty( $classes ) && empty( $vars ) ) {
+		if ( empty( $classes ) && empty( $vars ) && empty( $data ) ) {
 			return $content;
 		}
 
-		return $this->apply_to_first_tag( $content, $classes, $vars );
+		return $this->apply_to_first_tag( $content, $classes, $vars, $data );
 	}
 
 	/**
@@ -160,9 +165,10 @@ class Block_Render {
 	 * @param string                $content HTML.
 	 * @param string[]              $classes Class names to add.
 	 * @param array<string, string> $vars    Custom properties to add.
+	 * @param array<string, string> $data    Data attributes to add.
 	 * @return string Modified HTML, or the original when there is no tag.
 	 */
-	private function apply_to_first_tag( $content, array $classes, array $vars ) {
+	private function apply_to_first_tag( $content, array $classes, array $vars, array $data = array() ) {
 		$tags = new WP_HTML_Tag_Processor( $content );
 
 		if ( ! $tags->next_tag() ) {
@@ -182,6 +188,10 @@ class Block_Render {
 			}
 
 			$tags->set_attribute( 'style', $declarations );
+		}
+
+		foreach ( $data as $name => $value ) {
+			$tags->set_attribute( $name, $value );
 		}
 
 		return $tags->get_updated_html();

@@ -318,3 +318,31 @@ msgstr "Ambient"
 #: wp-ambientcss.php
 msgid "Use Ambient CSS lighting, surface and material styles as properties on any WordPress block."
 msgstr "Ambient CSS のライティング・面・素材のスタイルを、任意の WordPress ブロックのプロパティとして利用できるようにします。"
+
+#: src/inspector.js
+msgid "Follow the pointer"
+msgstr "ポインタに追従"
+
+#: src/inspector.js
+msgid "Off"
+msgstr "追従しない"
+
+#: src/inspector.js
+msgid "Whole page"
+msgstr "ページ全体"
+
+#: src/inspector.js
+msgid "This block"
+msgstr "このブロック"
+
+#: src/inspector.js
+msgid "Whole page shares one light source across every following block. This block gives it its own, lit from where the pointer is over it. The light stays where it was when the pointer leaves."
+msgstr "「ページ全体」は追従する全ブロックで1つの光源を共有します。「このブロック」はそのブロック専用の光源になり、ブロック上のポインタ位置から照らされます。ポインタが離れると、光源は最後の位置で止まります。"
+
+#: src/inspector.js
+msgid "The light follows the pointer, which overrides these presets."
+msgstr "光源がポインタに追従しているため、これらのプリセットは無効です。"
+
+#: src/inspector.js
+msgid "Controlled by the pointer while following is on."
+msgstr "追従が有効な間はポインタが制御します。"

@@ -10,6 +10,7 @@ import { applyFilters } from '@wordpress/hooks';
 
 import {
 	EDGE_OPTIONS,
+	FOLLOW_OPTIONS,
 	LIGHT_OPTIONS,
 	MATERIAL_OPTIONS,
 	NUMERIC_VARS,
@@ -108,16 +109,17 @@ export function getAmbientClasses( ambient, blockName = '' ) {
 		return classes;
 	}
 
-	const vars = ambient.vars || {};
-
 	if ( ambient.enabled ) {
 		classes.push( 'ambient' );
 	}
 
 	// An inline light vector always beats the preset class, so emitting both
 	// would show a direction the rendering ignores. See SPEC.md 7.3.
-	const hasLightVector =
-		vars.lightX !== undefined || vars.lightY !== undefined;
+	//
+	// A follow mode takes precedence over both: page mode needs the block to
+	// inherit the document's vector, and block mode has the script write an
+	// inline one.
+	const hasLightVector = drivesOwnLight( ambient );
 
 	// The isString guards keep a hand-edited attribute from matching through
 	// JavaScript's key coercion, where [ 'flat' ] becomes the key 'flat'. PHP
@@ -231,6 +233,53 @@ export function sanitizeColor( value ) {
 }
 
 /**
+ * Whether the light vector is decided somewhere other than the preset.
+ *
+ * @param {Object} ambient The `ambient` attribute.
+ * @return {boolean} True when a preset would be ignored.
+ */
+function drivesOwnLight( ambient ) {
+	if ( isFollowing( ambient ) ) {
+		return true;
+	}
+
+	const vars = ambient.vars || {};
+
+	return vars.lightX !== undefined || vars.lightY !== undefined;
+}
+
+/**
+ * Whether the block asks the light to follow the pointer.
+ *
+ * @param {Object} ambient The `ambient` attribute.
+ * @return {boolean} True for a valid follow mode.
+ */
+export function isFollowing( ambient ) {
+	return (
+		!! ambient &&
+		isString( ambient.follow ) &&
+		FOLLOW_OPTIONS.includes( ambient.follow )
+	);
+}
+
+/**
+ * Builds the data attributes for an attribute object.
+ *
+ * The prefix is the plugin's own rather than `amb-`, so a future upstream
+ * class or attribute cannot collide with it.
+ *
+ * @param {Object} ambient The `ambient` attribute.
+ * @return {Object} Attribute name => value.
+ */
+export function getAmbientDataAttributes( ambient ) {
+	if ( ! isFollowing( ambient ) ) {
+		return {};
+	}
+
+	return { 'data-wp-ambient-follow': ambient.follow };
+}
+
+/**
  * Builds the inline custom properties for an attribute object.
  *
  * @param {Object} ambient The `ambient` attribute.
@@ -251,10 +300,19 @@ export function getAmbientStyle( ambient ) {
 		style[ '--amb-albedo' ] = albedo;
 	}
 
+	// A follow mode owns the light vector at runtime, so a stored one would
+	// either be overwritten on the first pointer move (block mode) or block
+	// the inherited value outright (page mode).
+	const following = isFollowing( ambient );
+
 	Object.keys( NUMERIC_VARS ).forEach( ( key ) => {
 		const value = toNumber( vars[ key ] );
 
 		if ( value === undefined ) {
+			return;
+		}
+
+		if ( following && ( key === 'lightX' || key === 'lightY' ) ) {
 			return;
 		}
 
@@ -276,6 +334,7 @@ export function getAmbientStyle( ambient ) {
 export function hasAmbientOutput( ambient ) {
 	return (
 		getAmbientClasses( ambient ).length > 0 ||
-		Object.keys( getAmbientStyle( ambient ) ).length > 0
+		Object.keys( getAmbientStyle( ambient ) ).length > 0 ||
+		Object.keys( getAmbientDataAttributes( ambient ) ).length > 0
 	);
 }

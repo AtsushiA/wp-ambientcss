@@ -4,7 +4,7 @@
  * Plugin URI: https://next-season.net/
  * Update URI: false
  * Description: Use Ambient CSS lighting, surface and material styles as properties on any WordPress block.
- * Version: 0.1.0
+ * Version: 0.2.0
  * Requires at least: 6.6
  * Requires PHP: 7.4
  * Author: NExT-Season
@@ -24,7 +24,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'WP_AMBIENTCSS_VERSION', '0.1.0' );
+define( 'WP_AMBIENTCSS_VERSION', '0.2.0' );
 define( 'WP_AMBIENTCSS_FILE', __FILE__ );
 define( 'WP_AMBIENTCSS_DIR', plugin_dir_path( __FILE__ ) );
 define( 'WP_AMBIENTCSS_URL', plugin_dir_url( __FILE__ ) );

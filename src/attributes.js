@@ -42,6 +42,14 @@ export const MATERIAL_OPTIONS = [
 export const ROUNDED_OPTIONS = [ 'base', 'md', 'lg', 'xl', 'full' ];
 
 /**
+ * Pointer-following modes.
+ *
+ * `page` shares one light source driven from the viewport; `block` gives the
+ * block its own, driven from the pointer's position over it.
+ */
+export const FOLLOW_OPTIONS = [ 'page', 'block' ];
+
+/**
  * Numeric `vars` keys with their CSS property, range, step and unit.
  *
  * Mirrors Attributes::NUMERIC_VARS in includes/class-attributes.php.

@@ -81,6 +81,8 @@ jobs:
             "${SLUG}/uninstall.php"
             "${SLUG}/build/index.js"
             "${SLUG}/build/index.asset.php"
+            "${SLUG}/build/follow.js"
+            "${SLUG}/build/follow.asset.php"
             "${SLUG}/assets/vendor/ambient.css"
             "${SLUG}/assets/vendor/LICENSE-ambientcss.txt"
           )
@@ -100,6 +102,8 @@ jobs:
             "${SLUG}/vendor/"
             "${SLUG}/src/"
             "${SLUG}/.github/"
+            "${SLUG}/webpack.config.js"
+            "${SLUG}/playwright.config.ts"
           )
           for path in "${forbidden[@]}"; do
             if unzip -l "$ZIP" | grep -qF " $path"; then

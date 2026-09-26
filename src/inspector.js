@@ -77,6 +77,12 @@ const edgeOptions = () => [
 	{ label: __( 'Groove', 'wp-ambientcss' ), value: 'groove' },
 ];
 
+const followOptions = () => [
+	{ label: __( 'Off', 'wp-ambientcss' ), value: '' },
+	{ label: __( 'Whole page', 'wp-ambientcss' ), value: 'page' },
+	{ label: __( 'This block', 'wp-ambientcss' ), value: 'block' },
+];
+
 const roundedOptions = () => [
 	{ label: __( 'None', 'wp-ambientcss' ), value: '' },
 	{ label: __( '4px', 'wp-ambientcss' ), value: 'base' },
@@ -161,9 +167,11 @@ export default function AmbientInspector( { ambient, setAmbient } ) {
 	const resetAll = () => setAmbient( undefined );
 
 	// An explicit light vector overrides the preset, so offering both would
-	// show a direction the browser ignores. See SPEC.md 7.3.
+	// show a direction the browser ignores. See SPEC.md 7.3. A follow mode
+	// takes the light over entirely, so it locks both out.
+	const isFollowing = value.follow === 'page' || value.follow === 'block';
 	const hasLightVector =
-		vars.lightX !== undefined || vars.lightY !== undefined;
+		isFollowing || vars.lightX !== undefined || vars.lightY !== undefined;
 
 	const labels = lightLabels();
 	const hasSettings = Object.keys( value ).length > 0;
@@ -234,13 +242,32 @@ export default function AmbientInspector( { ambient, setAmbient } ) {
 					</div>
 					{ hasLightVector && (
 						<p className="wp-ambientcss-light__note">
-							{ __(
-								'A light X or Y value is set under Advanced, which overrides these presets.',
-								'wp-ambientcss'
-							) }
+							{ isFollowing
+								? __(
+										'The light follows the pointer, which overrides these presets.',
+										'wp-ambientcss'
+								  )
+								: __(
+										'A light X or Y value is set under Advanced, which overrides these presets.',
+										'wp-ambientcss'
+								  ) }
 						</p>
 					) }
 				</fieldset>
+
+				<SelectControl
+					__nextHasNoMarginBottom
+					__next40pxDefaultSize
+					label={ __( 'Follow the pointer', 'wp-ambientcss' ) }
+					help={ __(
+						'Whole page shares one light source across every following block. This block gives it its own, lit from where the pointer is over it. The light stays where it was when the pointer leaves.',
+						'wp-ambientcss'
+					) }
+					value={ value.follow || '' }
+					options={ followOptions() }
+					disabled={ ! enabled }
+					onChange={ ( next ) => update( 'follow', next ) }
+				/>
 
 				<SelectControl
 					__nextHasNoMarginBottom
@@ -359,6 +386,7 @@ export default function AmbientInspector( { ambient, setAmbient } ) {
 
 				{ Object.keys( NUMERIC_VARS ).map( ( key ) => {
 					const spec = NUMERIC_VARS[ key ];
+					const isLightVector = key === 'lightX' || key === 'lightY';
 
 					return (
 						<RangeControl
@@ -366,11 +394,20 @@ export default function AmbientInspector( { ambient, setAmbient } ) {
 							__nextHasNoMarginBottom
 							__next40pxDefaultSize
 							label={ advancedLabels()[ key ] }
+							help={
+								isLightVector && isFollowing
+									? __(
+											'Controlled by the pointer while following is on.',
+											'wp-ambientcss'
+									  )
+									: undefined
+							}
 							value={ vars[ key ] }
 							min={ spec.min }
 							max={ spec.max }
 							step={ spec.step }
 							allowReset
+							disabled={ isLightVector && isFollowing }
 							onChange={ ( next ) =>
 								updateVar(
 									key,

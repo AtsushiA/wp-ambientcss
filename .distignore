@@ -24,6 +24,7 @@
 /playwright-report
 /blob-report
 /playwright.config.ts
+/webpack.config.js
 /package.json
 /package-lock.json
 /composer.json

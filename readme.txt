@@ -4,7 +4,7 @@ Tags: blocks, block editor, css, design, shadows
 Requires at least: 6.6
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 0.1.0
+Stable tag: 0.2.0
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -31,6 +31,19 @@ stores nothing outside of block attributes and one options row.
 * Corner radius and glow
 * Advanced: surface color (albedo), reflectance, key and fill light, light hue
   and saturation, grain amount, curve strength
+* Follow the pointer: whole page or per block
+
+= Following the pointer =
+
+A block can take its light from the visitor's pointer, in one of two modes.
+Whole page shares a single light source across every following block on the
+page. This block gives that block its own light, lit from wherever the pointer
+is over it. Both can be used on the same page. When the pointer leaves, the
+light stays where it was rather than springing back.
+
+The script is only loaded on pages that contain a following block, and it does
+nothing on devices without a hovering pointer or for visitors who have asked
+for reduced motion.
 
 = Site wide defaults =
 
@@ -58,6 +71,10 @@ The classes stay in your post content but stop matching any stylesheet, so
 blocks render as they would without Ambient. Nothing is rewritten.
 
 == Changelog ==
+
+= 0.2.0 =
+* Blocks can take their light from the visitor's pointer, per block, in either
+  a shared whole-page mode or their own block-scoped mode.
 
 = 0.1.0 =
 * Initial release.

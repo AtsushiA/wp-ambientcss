@@ -1,6 +1,6 @@
 {
   "name": "wp-ambientcss",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Use Ambient CSS lighting and surface styles as WordPress block properties.",
   "license": "GPL-2.0-or-later",
   "private": true,

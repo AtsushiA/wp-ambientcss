@@ -68,6 +68,16 @@ class Attributes {
 	);
 
 	/**
+	 * Allowed `follow` values.
+	 *
+	 * `page` shares one light source driven from the viewport; `block` gives
+	 * the block its own, driven from the pointer's position over it.
+	 *
+	 * @var string[]
+	 */
+	const FOLLOW = array( 'page', 'block' );
+
+	/**
 	 * Allowed `elevation` values.
 	 *
 	 * @var int[]
@@ -153,6 +163,10 @@ class Attributes {
 		if ( isset( $raw['rounded'] ) && is_string( $raw['rounded'] )
 			&& isset( self::ROUNDED[ $raw['rounded'] ] ) ) {
 			$out['rounded'] = $raw['rounded'];
+		}
+		if ( isset( $raw['follow'] ) && is_string( $raw['follow'] )
+			&& in_array( $raw['follow'], self::FOLLOW, true ) ) {
+			$out['follow'] = $raw['follow'];
 		}
 
 		// Cast before comparing so that a JSON "2" still matches. is_numeric()
@@ -277,7 +291,12 @@ class Attributes {
 		// An explicit light vector wins over the class anyway, because inline
 		// styles beat class selectors. Skip the preset so the markup does not
 		// claim something the rendering contradicts. See SPEC.md 7.3.
-		$has_light_vector = isset( $ambient['vars']['lightX'] ) || isset( $ambient['vars']['lightY'] );
+		//
+		// Following the pointer takes precedence over both: in page mode the
+		// block has to inherit the document's vector, and in block mode the
+		// script writes its own inline vector. Either way a preset here would
+		// be ignored or would block the inheritance.
+		$has_light_vector = self::drives_own_light( $ambient );
 
 		if ( isset( $ambient['light'] ) && ! $has_light_vector ) {
 			$classes[] = 'amb-light-' . $ambient['light'];
@@ -318,6 +337,39 @@ class Attributes {
 	}
 
 	/**
+	 * Whether the light vector is decided somewhere other than the preset.
+	 *
+	 * @param array $ambient Sanitized attribute array.
+	 * @return bool
+	 */
+	private static function drives_own_light( array $ambient ) {
+		if ( isset( $ambient['follow'] ) ) {
+			return true;
+		}
+
+		return isset( $ambient['vars']['lightX'] ) || isset( $ambient['vars']['lightY'] );
+	}
+
+	/**
+	 * Builds the data attributes for a sanitized attribute array.
+	 *
+	 * The prefix is the plugin's own rather than `amb-`, so a future upstream
+	 * class or attribute cannot collide with it.
+	 *
+	 * @param array $ambient Sanitized attribute array.
+	 * @return array<string, string> Attribute name => value.
+	 */
+	public static function get_data_attributes( array $ambient ) {
+		$attributes = array();
+
+		if ( isset( $ambient['follow'] ) ) {
+			$attributes['data-wp-ambient-follow'] = $ambient['follow'];
+		}
+
+		return $attributes;
+	}
+
+	/**
 	 * Builds the CSS custom properties for a sanitized attribute array.
 	 *
 	 * @param array $ambient Sanitized attribute array.
@@ -332,8 +384,16 @@ class Attributes {
 			$vars['--amb-albedo'] = $src['albedo'];
 		}
 
+		// A follow mode owns the light vector at runtime, so a stored one would
+		// either be overwritten on the first pointer move (block mode) or
+		// block the inherited value outright (page mode).
+		$following = isset( $ambient['follow'] );
+
 		foreach ( self::NUMERIC_VARS as $key => $spec ) {
 			if ( ! isset( $src[ $key ] ) ) {
+				continue;
+			}
+			if ( $following && ( 'lightX' === $key || 'lightY' === $key ) ) {
 				continue;
 			}
 			list( $property, , , $unit ) = $spec;

@@ -18,6 +18,7 @@ class Assets {
 
 	const HANDLE        = 'wp-ambientcss';
 	const EDITOR_HANDLE = 'wp-ambientcss-editor';
+	const FOLLOW_HANDLE = 'wp-ambientcss-follow';
 
 	/**
 	 * Whether a block using Ambient has been rendered on this request.
@@ -25,6 +26,13 @@ class Assets {
 	 * @var bool
 	 */
 	private $used = false;
+
+	/**
+	 * Whether a block on this request asks the light to follow the pointer.
+	 *
+	 * @var bool
+	 */
+	private $follow_used = false;
 
 	/**
 	 * Hooks asset loading.
@@ -52,6 +60,44 @@ class Assets {
 		$root = Settings::get_root_css();
 		if ( '' !== $root ) {
 			wp_add_inline_style( self::HANDLE, $root );
+		}
+
+		$follow = WP_AMBIENTCSS_DIR . 'build/follow.asset.php';
+
+		if ( file_exists( $follow ) ) {
+			$asset = require $follow;
+
+			wp_register_script(
+				self::FOLLOW_HANDLE,
+				WP_AMBIENTCSS_URL . 'build/follow.js',
+				$asset['dependencies'],
+				$asset['version'],
+				true
+			);
+		}
+	}
+
+	/**
+	 * Enqueues the pointer-following script for this request.
+	 *
+	 * Only pages that actually contain a following block pay for it, which is
+	 * why this is driven from render_block rather than from an unconditional
+	 * enqueue.
+	 */
+	public function mark_follow_used() {
+		if ( $this->follow_used || is_admin() ) {
+			return;
+		}
+
+		$this->follow_used = true;
+
+		/**
+		 * Filters whether the pointer-following script is loaded.
+		 *
+		 * @param bool $enqueue Whether to enqueue.
+		 */
+		if ( apply_filters( 'wp_ambientcss_enqueue_follow', true ) ) {
+			wp_enqueue_script( self::FOLLOW_HANDLE );
 		}
 	}
 

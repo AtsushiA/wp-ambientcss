@@ -7,7 +7,11 @@ import { createHigherOrderComponent } from '@wordpress/compose';
 import { hasBlockSupport } from '@wordpress/blocks';
 
 import { AMBIENT_ATTRIBUTE, DEFAULT_EXCLUDED_BLOCKS } from './attributes';
-import { getAmbientClasses, getAmbientStyle } from './class-names';
+import {
+	getAmbientClasses,
+	getAmbientDataAttributes,
+	getAmbientStyle,
+} from './class-names';
 import AmbientInspector from './inspector';
 
 import './editor.scss';
@@ -109,8 +113,13 @@ const withAmbientPreview = createHigherOrderComponent(
 
 		const classes = getAmbientClasses( ambient, props.name );
 		const style = getAmbientStyle( ambient );
+		const data = getAmbientDataAttributes( ambient );
 
-		if ( ! classes.length && ! Object.keys( style ).length ) {
+		if (
+			! classes.length &&
+			! Object.keys( style ).length &&
+			! Object.keys( data ).length
+		) {
 			return <BlockListBlock { ...props } />;
 		}
 
@@ -122,6 +131,7 @@ const withAmbientPreview = createHigherOrderComponent(
 					.join( ' ' ) }
 				wrapperProps={ {
 					...props.wrapperProps,
+					...data,
 					style: { ...( props.wrapperProps || {} ).style, ...style },
 				} }
 			/>
@@ -159,6 +169,8 @@ function addSaveProps( extraProps, blockType, attributes ) {
 	if ( Object.keys( style ).length ) {
 		extraProps.style = { ...extraProps.style, ...style };
 	}
+
+	Object.assign( extraProps, getAmbientDataAttributes( ambient ) );
 
 	return extraProps;
 }
