@@ -11,7 +11,7 @@
     "lint:php": "vendor/bin/phpcs",
     "format": "wp-scripts format src",
     "update:ambient": "node bin/update-ambient-css.mjs",
-    "i18n:pot": "wp i18n make-pot . languages/wp-ambientcss.pot --domain=wp-ambientcss --exclude=node_modules,vendor,assets/vendor,build",
+    "i18n:pot": "wp i18n make-pot . languages/wp-ambientcss.pot --domain=wp-ambientcss --exclude=node_modules,vendor,assets/vendor,build,tests,dist",
     "i18n:mo": "wp i18n make-mo languages",
     "i18n:json": "wp i18n make-json languages --no-purge && node bin/merge-translation-json.mjs",
     "env:start": "wp-env start",

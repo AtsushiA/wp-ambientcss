@@ -32,6 +32,8 @@
 /phpcs.xml.dist
 /phpunit.xml.dist
 /SPEC.md
+/README.md
+/README.en.md
 /debug.log
 /db.sql
 *.zip
