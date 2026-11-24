@@ -3,6 +3,7 @@
 [日本語](README.md) | **English**
 
 [![CI](https://github.com/AtsushiA/wp-ambientcss/actions/workflows/ci.yml/badge.svg)](https://github.com/AtsushiA/wp-ambientcss/actions/workflows/ci.yml)
+[![Try in WordPress Playground](https://img.shields.io/badge/Try%20in-WordPress%20Playground-3858e9?logo=wordpress)](https://playground.wordpress.net/?blueprint-url=https://raw.githubusercontent.com/AtsushiA/wp-ambientcss/main/blueprint.json)
 
 Use [Ambient CSS](https://github.com/kikkupico/ambientcss) as block settings in the WordPress editor.
 

@@ -1,0 +1,32 @@
+{
+	"$schema": "https://playground.wordpress.net/blueprint-schema.json",
+	"landingPage": "/",
+	"preferredVersions": {
+		"php": "8.3",
+		"wp": "latest"
+	},
+	"features": {
+		"networking": true
+	},
+	"steps": [
+		{
+			"step": "login",
+			"username": "admin",
+			"password": "password"
+		},
+		{
+			"step": "installPlugin",
+			"pluginData": {
+				"resource": "wordpress.org/plugins",
+				"slug": "wp-ambientcss"
+			},
+			"options": {
+				"activate": true
+			}
+		},
+		{
+			"step": "runPHP",
+			"code": "<?php\nrequire_once '/wordpress/wp-load.php';\nwp_set_current_user( 1 );\n$page_id = wp_insert_post( array(\n\t'post_type'    => 'page',\n\t'post_status'  => 'publish',\n\t'post_title'   => 'Ambient CSS demo',\n\t'post_content' => \"<!-- wp:paragraph -->\\n<p>Each card below is a Group block with Ambient CSS turned on. Open this page in the editor and select a card to change its settings in the block inspector.</p>\\n<!-- /wp:paragraph -->\\n\\n<!-- wp:group {\\\"ambient\\\":{\\\"enabled\\\":true,\\\"light\\\":\\\"tl\\\",\\\"surface\\\":\\\"convex\\\",\\\"edge\\\":\\\"fillet\\\",\\\"material\\\":\\\"brushed\\\",\\\"elevation\\\":2,\\\"rounded\\\":\\\"lg\\\",\\\"vars\\\":{\\\"albedo\\\":\\\"#2b6cb0\\\",\\\"keyLight\\\":0.75}}} -->\\n<div class=\\\"wp-block-group ambient amb-light-tl amb-surface-convex amb-fillet amb-mat-brushed amb-elevation-2 amb-rounded-lg\\\" style=\\\"--amb-albedo:#2b6cb0;--amb-key-light-intensity:0.75\\\"><!-- wp:paragraph -->\\n<p>Convex, brushed, fillet edge, lit from the top left.</p>\\n<!-- /wp:paragraph --></div>\\n<!-- /wp:group -->\\n\\n<!-- wp:group {\\\"ambient\\\":{\\\"enabled\\\":true,\\\"follow\\\":\\\"block\\\",\\\"surface\\\":\\\"flat\\\",\\\"elevation\\\":2}} -->\\n<div class=\\\"wp-block-group ambient amb-surface amb-elevation-2\\\" data-wp-ambient-follow=\\\"block\\\"><!-- wp:paragraph -->\\n<p>Move the pointer over this card: its light follows you.</p>\\n<!-- /wp:paragraph --></div>\\n<!-- /wp:group -->\",\n) );\nupdate_option( 'show_on_front', 'page' );\nupdate_option( 'page_on_front', $page_id );\n"
+		}
+	]
+}

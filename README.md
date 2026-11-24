@@ -3,6 +3,7 @@
 **日本語** | [English](README.en.md)
 
 [![CI](https://github.com/AtsushiA/wp-ambientcss/actions/workflows/ci.yml/badge.svg)](https://github.com/AtsushiA/wp-ambientcss/actions/workflows/ci.yml)
+[![Try in WordPress Playground](https://img.shields.io/badge/Try%20in-WordPress%20Playground-3858e9?logo=wordpress)](https://playground.wordpress.net/?blueprint-url=https://raw.githubusercontent.com/AtsushiA/wp-ambientcss/main/blueprint.json)
 
 [Ambient CSS](https://github.com/kikkupico/ambientcss) の陰影表現を、WordPress ブロックエディタの設定項目として使えるようにするプラグインです。
 
